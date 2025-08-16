@@ -1,9 +1,30 @@
 // App-1-Number-Guessing-Game.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//1. Adding a complexity layer - adding difficulties
+//2. Adding a complexity layer - re-randomising the number when the difficulty is chosen
+//3. Adding a complexity layer - adding basic statistics (attempts, wins, loss)
 
+//Importing libraries
 #include <iostream>
 #include <random>
 #include "random_number.h"
+
+static void DisplayStatistics(int &totalAttempts, int &win, int &loss) {
+
+    // Generating the statistics
+    std::cout << "------------------------------Generating Statistics--------------------------------- \n";
+    std::cout << "Total Attempts: " << totalAttempts << '\n';
+    std::cout << "Wins: " << win << '\n';
+    std::cout << "Losses: " << loss << '\n';
+
+    if (totalAttempts > 0) {
+        double win_percentage = static_cast<double>(win) / totalAttempts * 100;
+        std::cout << "Win Percentage: " << win_percentage << "%" << '\n';
+    }
+    else {
+        std::cout << "No games played yet." << '\n';
+    }
+
+}
 
 int main()
 {
@@ -17,7 +38,11 @@ int main()
     std::cin >> start;
 
     // Starting the game
-    guessing_game(start, rng);
+    auto [totalAttempts,win,loss] = guessing_game(start, rng);
+
+    // Calling the statistics function
+    DisplayStatistics(totalAttempts, win, loss);
+
     return 0;
 }
 
